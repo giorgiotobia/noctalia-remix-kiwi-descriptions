@@ -260,7 +260,7 @@ if [[ "$kiwi_profiles" == *"Container"* ]] || [[ "$kiwi_profiles" == *"FEX"* ]];
 		releasever=eln
 	fi
 
-	rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-primary
+	rpm --import /usr/share/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-primary
 
 	echo "# fstab intentionally empty for containers" > /etc/fstab
 
@@ -339,43 +339,6 @@ FOE
 
 /usr/sbin/usermod -a -G jackuser,audio liveuser
 EOF
-fi
-
-if [[ "$kiwi_profiles" == *"Robotics"* ]]; then
-
-# Extend the post-configuration from the live-desktop, set default shortcuts to IDEs
-cat >> /var/lib/livesys/livesys-session-extra << EOF
-# disable screensaver locking
-cat >> /usr/share/glib-2.0/schemas/org.gnome.desktop.screensaver.gschema.override << FOE
-[org.gnome.desktop.screensaver]
-lock-enabled=false
-FOE
-
-# and hide the lock screen option
-cat >> /usr/share/glib-2.0/schemas/org.gnome.desktop.lockdown.gschema.override << FOE
-[org.gnome.desktop.lockdown]
-disable-lock-screen=true
-FOE
-
-# make the installer show up
-if [ -f /usr/share/applications/liveinst.desktop ]; then
-  # Show harddisk install in shell dash
-  sed -i -e 's/NoDisplay=true/NoDisplay=false/' /usr/share/applications/liveinst.desktop ""
-  # need to move it to anaconda.desktop to make shell happy
-  mv /usr/share/applications/liveinst.desktop /usr/share/applications/anaconda.desktop
-
-  cat >> /usr/share/glib-2.0/schemas/org.gnome.shell.gschema.override << FOE
-[org.gnome.shell]
-favorite-apps=['org.mozilla.firefox.desktop', 'org.qt-project.qtcreator.desktop', 'arduino.desktop', 'gnome-terminal.desktop','nautilus.desktop', 'anaconda.desktop']
-FOE
-
-fi
-
-# rebuild schema cache with any overrides we installed
-glib-compile-schemas /usr/share/glib-2.0/schemas
-
-EOF
-
 fi
 
 if [[ "$kiwi_profiles" == *"Design_suite"* ]]; then
@@ -467,6 +430,29 @@ fi
 if [[ "$kiwi_profiles" == *"WSL"* ]] && [[ "$kiwi_iname" == *"ELN"* ]]; then
 wsl-setup --name Fedora-ELN
 fi
+
+
+if [[ "$kiwi_profiles" == *"Noctalia"* ]]; then
+# enable noctalia-greeter in greetd config
+cat <<EOF > /etc/greetd/config.toml
+[terminal]
+vt = 1
+
+[default_session]
+command = "/usr/bin/noctalia-greeter-session"
+user = "greetd"
+EOF
+
+# Setup noctalia-greeter
+GREETER_USER=greetd /usr/share/noctalia-greeter/setup_greeter_system.sh
+# Copy postinstall script
+mv /tmp/additional_setup.sh /usr/local/bin
+chmod +x /usr/local/bin/additional_setup.sh
+# Enable greetd service
+systemctl enable greetd.service
+
+fi
+
 
 #======================================
 # Finalization steps

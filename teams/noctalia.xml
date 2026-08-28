@@ -1,0 +1,17 @@
+<image>
+        <profiles>
+                <profile name="Noctalia-Live" description="Noctalia Spin Live DVD">
+                        <requires profile="Noctalia-Desktop"/>
+                        <requires profile="LiveInstall"/>
+                </profile>
+                <profile name="Noctalia-Disk" description="Noctalia Spin Install Disk">
+                        <requires profile="Noctalia-Desktop"/>
+                        <requires profile="BootDiskCore"/>
+                </profile>
+        </profiles>
+        <packages type="bootstrap" patternType="plusRecommended" profiles="Noctalia-Live,Noctalia-Disk">
+                <package name="generic-logos"/>
+                <package name="generic-release"/>
+                <package name="generic-release-notes"/>
+        </packages>
+</image>

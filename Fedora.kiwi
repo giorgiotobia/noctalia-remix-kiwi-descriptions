@@ -7,12 +7,12 @@
 		<specification>Fedora Linux</specification>
 	</description>
 	<preferences>
-		<version>44</version>
+		<version>Rawhide</version>
 		<packagemanager>dnf5</packagemanager>
 		<locale>en_US</locale>
 		<keytable>us</keytable>
 		<timezone>UTC</timezone>
-		<release-version>44</release-version>
+		<release-version>rawhide</release-version>
 	</preferences>
 	<include from="this://./repositories/core.xml"/>
 	<include from="this://./components/common.xml"/>
@@ -32,6 +32,7 @@
 	<include from="this://./components/desktops/budgie.xml"/>
 	<include from="this://./components/desktops/miraclewm.xml"/>
 	<include from="this://./components/desktops/cosmic.xml"/>
+	<include from="this://./components/desktops/noctalia.xml"/>
 	<include from="this://./components/liveinstall.xml"/>
 	<include from="this://./components/users.xml"/>
 	<include from="this://./teams/base.xml"/>
@@ -62,7 +63,7 @@
 	<include from="this://./teams/games.xml"/>
 	<include from="this://./teams/security.xml"/>
 	<include from="this://./teams/jam.xml"/>
-	<include from="this://./teams/robotics.xml"/>
+	<include from="this://./teams/noctalia.xml"/>
 	<packages type="bootstrap">
 		<package name="filesystem"/>
 	</packages>

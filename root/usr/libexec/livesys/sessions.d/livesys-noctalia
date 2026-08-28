@@ -1,0 +1,42 @@
+#!/usr/bin/sh
+#
+# live-noctalia: noctalia specific setup for livesys
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+
+WM=umbriel
+
+sudo bash -c 'cat <<EOF >> /etc/greetd/config.toml
+[initial_session]
+command = "'$WM'"
+user = "liveuser"
+EOF'
+
+mkdir -p /home/liveuser/.local/share/applications
+cp /usr/share/applications/liveinst.desktop /home/liveuser/.local/share/applications
+sed -i -r -e "s/(NoDisplay=)true/\1false/" -e "s/(Terminal=)false/\1true/" /home/liveuser/.local/share/applications/liveinst.desktop
+
+mkdir -p /home/liveuser/.local/share/keyrings
+echo -n "Default_keyring" > /home/liveuser/.local/share/keyrings/default
+
+cat <<EOF > /home/liveuser/.local/share/keyrings/Default_keyring.keyring
+[keyring]
+display-name=Default keyring
+ctime=0
+mtime=0
+lock-on-idle=false
+lock-after=false
+EOF
+
+chmod 700 /home/liveuser/.local/share/keyrings/
+chmod 600 /home/liveuser/.local/share/keyrings/Default_keyring.keyring
+
+sed -i -r -e "s/^(autostart = \[\"noctalia\").*/\1,\"additional_setup.sh \&\"\]/" /home/liveuser/.config/umbriel/config.toml
+
+cat >> /home/liveuser/.config/umbriel/config.toml <<EOF
+
+[[window_rule]]
+match.app_id = "^org.fedoraproject.AnacondaInstaller$"
+default_maximize = true
+
+EOF

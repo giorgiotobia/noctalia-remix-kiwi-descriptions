@@ -1,0 +1,33 @@
+<image>
+        <profiles>
+                <profile name="Noctalia-Desktop" description="Noctalia Desktop">
+                        <requires profile="BaseCommon"/>
+                        <requires profile="HardwareCommon"/>
+                </profile>
+        </profiles>
+        <packages type="image" patternType="plusRecommended" profiles="Noctalia-Desktop">
+                <namedCollection name="core"/>
+                <namedCollection name="multimedia"/>
+                <namedCollection name="networkmanager-submodules"/>
+                <namedCollection name="guest-desktop-agents"/>
+                <package name="gnome-keyring-pam"/>
+                <package name="selinux-policy"/>
+                <package name="selinux-policy-targeted"/>
+                <package name="noctalia"/>
+                <package name="noctalia-greeter"/>
+                <package name="xwayland-satellite"/>
+                <package name="foot"/>
+                <package name="firefox"/>
+                <package name="fontawesome-fonts-all"/>
+                <package name="playerctl"/>
+                <package name="feh"/>
+                <package name="thunar"/>
+                <package name="egl-utils"/>
+                <package name="xdg-desktop-portal-gtk"/>
+                <package name="xdg-desktop-portal-umbriel-nightly"/>
+                <package name="umbriel-nightly"/>
+        </packages>
+        <repository type="rpm-md" alias="terra" priority="110" imageinclude="true" sourcetype="metalink">
+                <source path="https://tetsudou.fyralabs.com/metalink?repo=terra$releasever&amp;arch=$basearch"/>
+        </repository>
+</image>
