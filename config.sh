@@ -431,6 +431,27 @@ if [[ "$kiwi_profiles" == *"WSL"* ]] && [[ "$kiwi_iname" == *"ELN"* ]]; then
 wsl-setup --name Fedora-ELN
 fi
 
+if [[ "$kiwi_profiles" == *"Noctalia"* ]]; then
+# enable noctalia-greeter in greetd config
+cat <<EOF > /etc/greetd/config.toml
+[terminal]
+vt = 1
+
+[default_session]
+command = "/usr/bin/noctalia-greeter-session"
+user = "greetd"
+EOF
+
+# Setup noctalia-greeter
+GREETER_USER=greetd /usr/share/noctalia-greeter/setup_greeter_system.sh
+# Copy postinstall script
+mv /tmp/additional_setup.sh /usr/local/bin
+chmod +x /usr/local/bin/additional_setup.sh
+# Enable greetd service
+systemctl enable greetd.service
+
+fi
+
 
 if [[ "$kiwi_profiles" == *"Noctalia"* ]]; then
 # enable noctalia-greeter in greetd config
