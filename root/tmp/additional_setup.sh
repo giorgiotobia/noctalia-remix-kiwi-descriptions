@@ -6,7 +6,7 @@ until [[ $(pgrep noctalia) ]]; do
 sleep 5
 done
 
-notify-send -t 60000 "INFO" "Open the launcher with Win+L or the Noctalia bar search icon for Install."
+# notify-send -t 60000 "INFO" "Open the launcher with Win+R or the Noctalia bar search icon for Install."
 
 until [ -d /home/liveuser/.local/share/slitherer ]; do
 sleep 10
