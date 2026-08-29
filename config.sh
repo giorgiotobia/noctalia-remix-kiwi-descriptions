@@ -470,6 +470,8 @@ GREETER_USER=greetd /usr/share/noctalia-greeter/setup_greeter_system.sh
 mv /tmp/additional_setup.sh /usr/local/bin
 chmod +x /usr/local/bin/additional_setup.sh
 # Enable greetd service
+systemctl enable livesys.service
+systemctl enable livesys-late.service
 systemctl enable greetd.service
 
 fi
