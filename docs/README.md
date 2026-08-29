@@ -11,6 +11,7 @@ Software is limited to the bare minimum:
 - Firefox browser
 - Thunar file manager
 - Gedit text editor
+
 Everything else is standard Fedora core + dependencies
 
 ## Features
