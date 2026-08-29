@@ -2,6 +2,7 @@
 
 This is a simple remix of Fedora 44 x86_64, built with fedora kiwi descriptions:
 - https://forge.fedoraproject.org/releng/kiwi-descriptions.git
+
 with the addition of Fyra Labs Terra repository:
 - https://terrapkg.com
 
