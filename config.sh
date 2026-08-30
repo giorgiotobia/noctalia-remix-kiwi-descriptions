@@ -451,6 +451,7 @@ chmod +x /usr/local/bin/additional_setup.sh
 systemctl enable livesys.service
 systemctl enable livesys-late.service
 systemctl enable greetd.service
+systemctl enable systemd-resolved.service
 
 fi
 
