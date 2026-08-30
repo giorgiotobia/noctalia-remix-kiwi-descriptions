@@ -1,16 +1,33 @@
 
-# fedora-kiwi-descriptions
+# Noctalia Fedora Remix
 
-This project is used to manage the Fedora KIWI image descriptions used in composing Fedora release images.
+This is a simple remix of Fedora 44 x86_64, built with fedora kiwi descriptions:
+- https://forge.fedoraproject.org/releng/kiwi-descriptions.git
 
-The `rawhide` branch is used for Fedora Rawhide images and each release branch is used by that release.
+with the addition of Fyra Labs Terra repository:
+- https://terrapkg.com
 
-All changes should be made via the PR workflow.
+Software is limited to the bare minimum:
+- Foot terminal emulator
+- Firefox browser
+- Thunar file manager
+- Gedit text editor
 
-## Image variants
+Everything else is standard Fedora core + dependencies
 
-Please look at [`VARIANTS`](VARIANTS.md) for details on the available
-configurations that can be built.
+## Features
+
+- Noctalia v5
+- Umbriel wayland compositor
+- Noctalia-greeter
+
+Noctalia github:
+- https://github.com/noctalia-dev
+
+## Installation
+
+It is a live cd so you can install it from live session like a fedora spin.
+You find the Install command using "Win+R" keybind or the search icon on Noctalia bar.
 
 ## Image build quickstart
 
@@ -23,19 +40,7 @@ Set up your development environment and run the image build (substitute `<image_
 # Install kiwi
 []$ sudo dnf --assumeyes install kiwi kiwi-systemdeps distribution-gpg-keys
 # Run the image build
-[]$ sudo ./kiwi-build --kiwi-file=Fedora.kiwi --image-type=<image_type> --image-profile=<image_profile> --output-dir ./outdir
-```
-
-## CI information
-
-This project is tested using the [Software Factory Zuul CI instance](https://fedora.softwarefactory-project.io/zuul/project/pagure.io/fedora-kiwi-descriptions)
-using the [Test Management Tool](https://tmt.readthedocs.io/).
-
-The Zuul configuration is generated from the Jinja2 template `.zuul.yaml.j2`.
-When adding or removing a tmt plan, please run the following command to regenerate the Zuul configuration:
-
-```bash
-[]$ make generate-zuul-config
+[]$ sudo ./kiwi-build --kiwi-file=Fedora.kiwi --image-type=iso --image-profile=Noctalia-Live --output-dir ./outdir
 ```
 
 ## Licensing
