@@ -6,7 +6,7 @@ until [[ $(pgrep noctalia) ]]; do
 sleep 5
 done
 
-# notify-send -t 60000 "INFO" "Open the launcher with Win+R or the Noctalia bar search icon for Install."
+notify-send -t 60000 "INFO" "If you decide to Install do not restart\n immediately after the installation finishes;\n wait for a notification to appear."
 
 until [ -d /home/liveuser/.local/share/slitherer ]; do
 sleep 10
@@ -36,6 +36,7 @@ fi
 FIRSTHOME=$(find /mnt/sysroot/home -maxdepth 1 -mindepth 1 -type d)
 if [ -n "$FIRSTHOME" ]; then
 sudo cp -r /mnt/sysroot/etc/skel/.config/ $FIRSTHOME
+sudo chown -R $(stat -c %u:%g $FIRSTHOME) /mnt/sysroot/etc/skel/.config/foot
 fi
 
 sudo rm -f /mnt/sysroot/usr/local/bin/additional_setup.sh
