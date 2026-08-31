@@ -115,6 +115,9 @@ if [[ "$kiwi_profiles" == *"Live"* ]]; then
 	if [[ "$kiwi_profiles" == *"Xfce"* ]]; then
 		echo 'livesys_session="xfce"' > /etc/sysconfig/livesys
 	fi
+    if [[ "$kiwi_profiles" == *"Noctalia"* ]]; then
+        echo 'livesys_session="noctalia"' > /etc/sysconfig/livesys
+    fi
 fi
 
 #======================================

@@ -36,7 +36,7 @@ fi
 FIRSTHOME=$(find /mnt/sysroot/home -maxdepth 1 -mindepth 1 -type d)
 if [ -n "$FIRSTHOME" ]; then
 sudo cp -r /mnt/sysroot/etc/skel/.config/ $FIRSTHOME
-sudo chown -R $(stat -c %u:%g $FIRSTHOME) /mnt/sysroot/etc/skel/.config/foot
+sudo chown -R $(stat -c %u:%g $FIRSTHOME) $FIRSTHOME/.config/
 fi
 
 sudo rm -f /mnt/sysroot/usr/local/bin/additional_setup.sh
