@@ -8,7 +8,7 @@ done
 
 notify-send -t 60000 "INFO" "If you decide to Install do not restart\nimmediately after the installation finishes;\nwait for 'You can reboot now.' notification to appear."
 
-until [ -d /home/liveuser/.local/share/slitherer ]; do
+until [[ $(pgrep liveinst) ]]; do
 sleep 10
 done
 
