@@ -2,4 +2,3 @@ enable greetd.service
 enable livesys.service
 enable livesys-late.service
 enable systemd-resolved.service
-enable systemd-timesyncd.service

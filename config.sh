@@ -447,8 +447,6 @@ EOF
 
 # Setup noctalia-greeter
 GREETER_USER=greetd /usr/share/noctalia-greeter/setup_greeter_system.sh
-# Set ntp servers
-sed -i -r -e "s/^#(FallbackNTP=)0\.fedora.*/\10.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org/" /usr/lib/systemd/timesyncd.conf
 # Copy postinstall script
 mv /tmp/additional_setup.sh /usr/local/bin
 chmod +x /usr/local/bin/additional_setup.sh
@@ -457,7 +455,6 @@ systemctl enable livesys.service
 systemctl enable livesys-late.service
 systemctl enable greetd.service
 systemctl enable systemd-resolved.service
-systemctl enable systemd-timesyncd.service
 
 fi
 
