@@ -22,6 +22,7 @@
                 <package name="playerctl"/>
                 <package name="feh"/>
                 <package name="thunar"/>
+                <package name="gedit"/>
                 <package name="egl-utils"/>
                 <package name="xdg-desktop-portal-gtk"/>
                 <package name="xdg-desktop-portal-umbriel-nightly"/>
