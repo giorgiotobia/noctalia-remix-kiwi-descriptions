@@ -37,7 +37,8 @@ sed -i -r -e "s/^(autostart = \[\"noctalia\").*/\1,\"additional_setup.sh \&\"\]/
 cat >> /home/liveuser/.config/umbriel/config.toml <<EOF
 
 [[window_rule]]
-match.app_id = "^org.fedoraproject.AnacondaInstaller$"
+# match.app_id = "^org.fedoraproject.AnacondaInstaller$"
+match.app_id = "^liveinst$"
 default_maximize = true
 
 EOF
