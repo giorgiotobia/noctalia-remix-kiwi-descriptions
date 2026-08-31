@@ -6,7 +6,7 @@ until [[ $(pgrep noctalia) ]]; do
 sleep 5
 done
 
-notify-send -t 60000 "INFO" "If you decide to Install do not restart\n immediately after the installation finishes;\n wait for a notification to appear."
+notify-send -t 60000 "INFO" "If you decide to Install do not restart\nimmediately after the installation finishes;\nwait for 'You can reboot now.' notification to appear."
 
 until [ -d /home/liveuser/.local/share/slitherer ]; do
 sleep 10
