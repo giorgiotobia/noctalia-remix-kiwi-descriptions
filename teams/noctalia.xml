@@ -10,9 +10,7 @@
                 </profile>
         </profiles>
         <repository type="rpm-md" alias="terra" priority="110" imageinclude="true" sourcetype="metalink">
-                <source path="https://tetsudou.fyralabs.com/metalink?repo=terra$releasever&amp;arch=$basearch">
-                        <signing key="file:///etc/pki/rpm-gpg/RPM-GPG-KEY-terra$releasever"/>
-                </source>
+                <source path="https://tetsudou.fyralabs.com/metalink?repo=terra$releasever&amp;arch=$basearch"/>
         </repository>
         <packages type="bootstrap" patternType="plusRecommended" profiles="Noctalia-Live,Noctalia-Disk">
                 <package name="generic-logos"/>
