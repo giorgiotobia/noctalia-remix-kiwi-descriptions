@@ -27,6 +27,7 @@
                 <package name="xdg-desktop-portal-gtk"/>
                 <package name="xdg-desktop-portal-umbriel-nightly"/>
                 <package name="umbriel-nightly"/>
+                <package name="terra-release"/>
         </packages>
         <repository type="rpm-md" alias="terra" priority="110" imageinclude="true" sourcetype="metalink">
                 <source path="https://tetsudou.fyralabs.com/metalink?repo=terra$releasever&amp;arch=$basearch"/>
