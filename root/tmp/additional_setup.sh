@@ -2,7 +2,7 @@
 
 WM=umbriel
 
-while read MONITOR RESOLUTION FREQUENCY; do
+UMBRIEL_OUTPUTS=$(while read MONITOR RESOLUTION FREQUENCY; do
 if [ ${RESOLUTION%x*} -ge 3840 ]; then
 SCALE=1.60
 elif [ ${RESOLUTION%x*} -ge 2560 ]; then
@@ -10,8 +10,10 @@ SCALE=1.25
 else
 SCALE=1.00
 fi
-printf "[output.\"%s\"]\nmode = \"%s@%d\"\nscale = %s\n" $MONITOR $RESOLUTION $FREQUENCY $SCALE
-done < <(umbriel outputs | awk '{if($0~/^[A-Z][A-Za-z]*-[0-9]/) mon=$1; {if($0~/current/) print mon, $1, $3}}')
+LC_NUMERIC="en_US.UTF-8" printf "\n[output.\"%s\"]\nmode = \"%s@%.0f\"\nscale = %s\n" $MONITOR $RESOLUTION $FREQUENCY $SCALE
+done < <(umbriel outputs | awk '{if($0~/^[A-Z][A-Za-z]*-[0-9]/) mon=$1; {if($0~/current/) print mon, $1, $3}}'))
+
+echo "$UMBRIEL_OUTPUTS" >> /home/liveuser/.config/umbriel/config.toml
 
 until [[ $(pgrep noctalia) ]]; do
 sleep 5
@@ -37,6 +39,7 @@ set -a
 source /mnt/sysroot/etc/vconsole.conf
 sudo bash -c 'sed -i -r -e "/\[input.keyboard\]/,/^$/ s/(layout = \").*/\1'$KEYMAP'\"/" /mnt/sysroot/etc/skel/.config/'${WM}'/config.toml'
 set +a
+sudo bash -c 'echo '"$UMBRIEL_OUTPUTS"' >> /mnt/sysroot/etc/skel/.config/'${WM}'/config.toml'
 fi
 
 if [ -f /mnt/sysroot/etc/xdg/foot/foot.ini ]; then
