@@ -2,6 +2,17 @@
 
 WM=umbriel
 
+while read MONITOR RESOLUTION FREQUENCY; do
+if [ ${RESOLUTION%x*} -ge 3840 ]; then
+SCALE=1.60
+elif [ ${RESOLUTION%x*} -ge 2560 ]; then
+SCALE=1.25
+else
+SCALE=1.00
+fi
+printf "[output.\"%s\"]\nmode = \"%s@%d\"\nscale = %s\n" $MONITOR $RESOLUTION $FREQUENCY $SCALE
+done < <(umbriel outputs | awk '{if($0~/^[A-Z][A-Za-z]*-[0-9]/) mon=$1; {if($0~/current/) print mon, $1, $3}}')
+
 until [[ $(pgrep noctalia) ]]; do
 sleep 5
 done
