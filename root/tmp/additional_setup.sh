@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 WM=umbriel
+IS_VIRTUAL=0
 
 UMBRIEL_OUTPUTS=$(while read MONITOR RESOLUTION FREQUENCY; do
 if [ ${RESOLUTION%x*} -ge 3840 ]; then
@@ -14,6 +15,15 @@ LC_NUMERIC="en_US.UTF-8" printf "\n[output.\"%s\"]\nmode = \"%s@%.0f\"\nscale = 
 done < <(umbriel outputs | awk '{if($0~/^[A-Z][A-Za-z]*-[0-9]/) mon=$1; {if($0~/current/) print mon, $1, $3}}'))
 
 echo "$UMBRIEL_OUTPUTS" >> /home/liveuser/.config/umbriel/config.toml
+
+systemd-detect-virt && IS_VIRTUAL=1
+
+if [ $IS_VIRTUAL -eq 1 ]; then
+sed -i -r -e "s/(hardware_cursor =).*/\1 false/" /home/liveuser/.config/umbriel/config.toml
+sed -i -r -e '/\[appearance.blur\]/,/^$/ s/(enabled =).*/\1 false/' /home/liveuser/.config/umbriel/config.toml
+sed -i -r -e '/\[appearance.shadow\]/,/^$/ s/(enabled =).*/\1 false/' /home/liveuser/.config/umbriel/config.toml
+sed -i -r -e '/\[animation\]/,/^$/ s/(enabled =).*/\1 false/' /home/liveuser/.config/umbriel/config.toml
+fi
 
 until [[ $(pgrep noctalia) ]]; do
 sleep 5
