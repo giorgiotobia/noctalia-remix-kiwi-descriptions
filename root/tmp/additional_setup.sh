@@ -44,7 +44,7 @@ fi
 
 if [ -f /mnt/sysroot/etc/xdg/foot/foot.ini ]; then
 sudo cp -r /mnt/sysroot/etc/xdg/foot /mnt/sysroot/etc/skel/.config/
-sudo bash -c 'sed -i -r -e "s/^.*(pad=)[0-9]*x[0-9]*(.*)/\15x5\2/" /mnt/sysroot/etc/skel/.config/foot/foot.ini'
+# sudo bash -c 'sed -i -r -e "s/^.*(pad=)[0-9]*x[0-9]*(.*)/\15x5\2/" /mnt/sysroot/etc/skel/.config/foot/foot.ini'
 fi
 
 FIRSTHOME=$(find /mnt/sysroot/home -maxdepth 1 -mindepth 1 -type d)
