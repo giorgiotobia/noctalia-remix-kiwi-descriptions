@@ -46,7 +46,7 @@ fi
 if [ -f /mnt/sysroot/etc/skel/.config/${WM}/config.toml ]; then
 set -a     
 source /mnt/sysroot/etc/vconsole.conf
-sudo bash -c 'sed -i -r -e "/\[input.keyboard\]/,/^$/ s/(layout = \").*/\1'$KEYMAP'\"/" /mnt/sysroot/etc/skel/.config/'${WM}'/config.toml'
+sudo bash -c 'sed -i -r -e "/\[input.keyboard\]/,/^$/ s/^(layout = \").*/\1'$KEYMAP'\"/" /mnt/sysroot/etc/skel/.config/'${WM}'/config.toml'
 set +a
 sudo bash -c 'echo '"$UMBRIEL_OUTPUTS"' >> /mnt/sysroot/etc/skel/.config/'${WM}'/config.toml'
 fi
