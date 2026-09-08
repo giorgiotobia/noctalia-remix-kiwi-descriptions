@@ -15,7 +15,7 @@ done < <(umbriel outputs | awk '{if($0~/^[A-Z][A-Za-z]*-[0-9]/) mon=$1; {if($0~/
 
 echo "$UMBRIEL_OUTPUTS" >> /home/liveuser/.config/umbriel/config.toml
 
-sed -i -r -e "/(files = \[.*\]) *#.*$/\1/" /home/liveuser/.config/umbriel/config.toml
+sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" /home/liveuser/.config/umbriel/config.toml
 
 IS_VIRTUAL=$(systemd-detect-virt)
 
