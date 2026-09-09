@@ -17,6 +17,7 @@ echo "$UMBRIEL_OUTPUTS" > /home/liveuser/.config/umbriel/outputs.toml
 
 # Delete comments after files list, otherwise the script that apply theme for umbriel doesn't work
 sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" /home/liveuser/.config/umbriel/config.toml
+sed -i -r -e "s/(spawn:)kitty/\1foot/" /home/liveuser/.config/umbriel/config.toml
 # add current output to liveuser configuration
 sed -i -r -e "/\[include\]$/,/^$/ s/(files = \[)\]/\1\"outputs.toml\"\]/" /home/liveuser/.config/umbriel/config.toml
 
@@ -65,7 +66,7 @@ sudo cp -r /mnt/sysroot/etc/skel/.config/ $FIRSTHOME
 sudo chown -R $(stat -c %u:%g $FIRSTHOME) $FIRSTHOME/.config/
 # add current output to first user configuration
 sudo bash -c 'echo '"$UMBRIEL_OUTPUTS"' > '$FIRSTHOME'/.config/'${WM}'/outputs.toml'
-sudo bash -c 'sed -i -r -e "/\[include\]$/,/^$/ s/(files = \[)\]/\1\"outputs.toml\"\]/" '$FIRSTHOME'/.config/'${WM}'/config.toml'
+sudo bash -c 'sed -i -r -e "/\[include\]$/,/^$/ s/(files = \[)\]/\1\"outputs.toml\"\]/" -e "s/(spawn:)kitty/\1foot/" '$FIRSTHOME'/.config/'${WM}'/config.toml'
 sudo bash -c 'sed -i -r -e "s/^.*(pad=)[0-9]*x[0-9]*(.*)/\15x5\2/" '$FIRSTHOME'/.config/foot/foot.ini'
 fi
 
