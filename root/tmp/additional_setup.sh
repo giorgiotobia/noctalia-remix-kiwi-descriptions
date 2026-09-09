@@ -36,6 +36,9 @@ done
 
 notify-send -t 60000 "INFO" "If you decide to Install do not restart\nimmediately after the installation finishes;\nwait for 'You can reboot now.' notification to appear."
 
+INSTALLED=0
+while [ $INSTALLED -ne 1 ]; do
+
 until [[ $(pgrep liveinst) ]]; do
 sleep 10
 done
@@ -44,32 +47,40 @@ while [[ $(pgrep liveinst) ]]; do
 sleep 5
 done
 
-if [ -f /mnt/sysroot/etc/greetd/config.toml ]; then
-notify-send "INFO" "Installation is over, please wait, setting:\nWayland default session\nKeyboard default layout\ncopying default configs."
-sudo bash -c 'sed -i -r -e "s|^(command = \"/usr/bin/noctalia-greeter-session)\"$|\1 -- --session '$WM'\"|" /mnt/sysroot/etc/greetd/config.toml'
+if [[ $(mount | grep sysroot) ]]; then
+
+    if [ -f /mnt/sysroot/etc/greetd/config.toml ]; then
+    notify-send "INFO" "Installation is over, please wait, setting:\nWayland default session\nKeyboard default layout\ncopying default configs."
+    sudo bash -c 'sed -i -r -e "s|^(command = \"/usr/bin/noctalia-greeter-session)\"$|\1 -- --session '$WM'\"|" /mnt/sysroot/etc/greetd/config.toml'
+    fi
+
+    if [ -f /mnt/sysroot/etc/skel/.config/${WM}/config.toml ]; then
+    set -a     
+    source /mnt/sysroot/etc/vconsole.conf
+    sudo bash -c 'sed -i -r -e "/\[input.keyboard\]/,/^$/ s/^(layout = \").*/\1'$KEYMAP'\"/" -e "/(files = \[.*\]) *#.*$/\1/" /mnt/sysroot/etc/skel/.config/'${WM}'/config.toml'
+    set +a
+    fi
+
+    if [ -f /mnt/sysroot/etc/xdg/foot/foot.ini ]; then
+    sudo cp -r /mnt/sysroot/etc/xdg/foot /mnt/sysroot/etc/skel/.config/
+    fi
+
+    FIRSTHOME=$(find /mnt/sysroot/home -maxdepth 1 -mindepth 1 -type d)
+    if [ -n "$FIRSTHOME" ]; then
+    sudo cp -r /mnt/sysroot/etc/skel/.config/ $FIRSTHOME
+    sudo chown -R $(stat -c %u:%g $FIRSTHOME) $FIRSTHOME/.config/
+    # add current output to first user configuration
+    sudo bash -c 'echo '"$UMBRIEL_OUTPUTS"' > '$FIRSTHOME'/.config/'${WM}'/outputs.toml'
+    sudo bash -c 'sed -i -r -e "/\[include\]$/,/^$/ s/(files = \[)\]/\1\"outputs.toml\"\]/" -e "s/(spawn:)kitty/\1foot/" '$FIRSTHOME'/.config/'${WM}'/config.toml'
+    sudo bash -c 'sed -i -r -e "s/^.*(pad=)[0-9]*x[0-9]*(.*)/\15x5\2/" '$FIRSTHOME'/.config/foot/foot.ini'
+    fi
+
+    sudo rm -f /mnt/sysroot/usr/local/bin/additional_setup.sh
+
+    notify-send "INFO" "You can reboot now."
+    INSTALLED=1
+
 fi
+sleep 10
 
-if [ -f /mnt/sysroot/etc/skel/.config/${WM}/config.toml ]; then
-set -a     
-source /mnt/sysroot/etc/vconsole.conf
-sudo bash -c 'sed -i -r -e "/\[input.keyboard\]/,/^$/ s/^(layout = \").*/\1'$KEYMAP'\"/" -e "/(files = \[.*\]) *#.*$/\1/" /mnt/sysroot/etc/skel/.config/'${WM}'/config.toml'
-set +a
-fi
-
-if [ -f /mnt/sysroot/etc/xdg/foot/foot.ini ]; then
-sudo cp -r /mnt/sysroot/etc/xdg/foot /mnt/sysroot/etc/skel/.config/
-fi
-
-FIRSTHOME=$(find /mnt/sysroot/home -maxdepth 1 -mindepth 1 -type d)
-if [ -n "$FIRSTHOME" ]; then
-sudo cp -r /mnt/sysroot/etc/skel/.config/ $FIRSTHOME
-sudo chown -R $(stat -c %u:%g $FIRSTHOME) $FIRSTHOME/.config/
-# add current output to first user configuration
-sudo bash -c 'echo '"$UMBRIEL_OUTPUTS"' > '$FIRSTHOME'/.config/'${WM}'/outputs.toml'
-sudo bash -c 'sed -i -r -e "/\[include\]$/,/^$/ s/(files = \[)\]/\1\"outputs.toml\"\]/" -e "s/(spawn:)kitty/\1foot/" '$FIRSTHOME'/.config/'${WM}'/config.toml'
-sudo bash -c 'sed -i -r -e "s/^.*(pad=)[0-9]*x[0-9]*(.*)/\15x5\2/" '$FIRSTHOME'/.config/foot/foot.ini'
-fi
-
-sudo rm -f /mnt/sysroot/usr/local/bin/additional_setup.sh
-
-notify-send "INFO" "You can reboot now."
+done
