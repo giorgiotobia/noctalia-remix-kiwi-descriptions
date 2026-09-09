@@ -58,7 +58,8 @@ if [[ $(mount | grep sysroot) ]]; then
     if [ -f /mnt/sysroot/etc/skel/.config/${WM}/config.toml ]; then
     set -a     
     source /mnt/sysroot/etc/vconsole.conf
-    sudo bash -c 'sed -i -r -e "/\[input.keyboard\]/,/^$/ s/^(layout = \").*/\1'$KEYMAP'\"/" -e "s/(files = \[.*\]) *#.*$/\1/" /mnt/sysroot/etc/skel/.config/'${WM}'/config.toml'
+    sudo bash -c 'sed -i -r -e "/\[input.keyboard\]/,/^$/ s/^(layout = \").*/\1'$KEYMAP'\"/" \
+        -e "s/(files = \[.*\]) *#.*$/\1/" /mnt/sysroot/etc/skel/.config/'${WM}'/config.toml'
     set +a
     fi
 
@@ -74,7 +75,9 @@ if [[ $(mount | grep sysroot) ]]; then
     sudo bash -c 'cat > '$FIRSTHOME'/.config/'${WM}'/outputs.toml <<EOF
 '"$UMBRIEL_OUTPUTS"'
 EOF'
-    sudo bash -c 'sed -i -r -e "/\[include\]$/,/^$/ s/(files = \[)\]/\1\"outputs.toml\"\]/" -e "s/(spawn:)kitty/\1foot/" '$FIRSTHOME'/.config/'${WM}'/config.toml'
+    sudo bash -c 'sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" \
+        -e "/\[include\]$/,/^$/ s/(files = \[)\]/\1\"outputs.toml\"\]/" \
+        -e "s/(spawn:)kitty/\1foot/" '$FIRSTHOME'/.config/'${WM}'/config.toml'
     sudo bash -c 'sed -i -r -e "s/^.*(pad=)[0-9]*x[0-9]*(.*)/\15x5\2/" '$FIRSTHOME'/.config/foot/foot.ini'
     fi
 
