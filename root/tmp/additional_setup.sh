@@ -34,14 +34,14 @@ until [[ $(pgrep noctalia) ]]; do
 sleep 5
 done
 
-notify-send -t 60000 "INFO" "If you decide to Install do not restart\nimmediately after the installation finishes;\nwait for 'You can reboot now.' notification to appear."
-
 INSTALLED=0
 while [ $INSTALLED -ne 1 ]; do
 
 until [[ $(pgrep liveinst) ]]; do
 sleep 10
 done
+
+notify-send -t 60000 "INFO" "Do not restart\nimmediately after the installation finishes;\nwait for 'You can reboot now.' notification to appear."
 
 while [[ $(pgrep liveinst) ]]; do
 sleep 5
