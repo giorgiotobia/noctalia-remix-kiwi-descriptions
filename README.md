@@ -27,7 +27,7 @@ Noctalia github:
 ## Installation
 
 It is a live cd so you can install it from live session like a fedora spin.
-You find the Install command using "Win+R" keybind or the search icon on Noctalia bar.
+You find the Install command using "Win" keybind or the search icon on Noctalia bar.
 
 ## Image build quickstart
 
