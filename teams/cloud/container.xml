@@ -17,7 +17,7 @@
 		<type image="oci">
 			<containerconfig
 			  name="fedora"
-			  tag="44"
+			  tag="45"
 			  maintainer="Fedora Project Contributors &lt;devel@lists.fedoraproject.org&gt;"
 			>
 				<subcommand execute="/bin/bash"/>
