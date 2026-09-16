@@ -6,6 +6,8 @@
 
 WM=umbriel
 
+systemctl --user enable oo7-daemon.service --now
+
 sudo bash -c 'cat <<EOF >> /etc/greetd/config.toml
 [initial_session]
 command = "'$WM'"
