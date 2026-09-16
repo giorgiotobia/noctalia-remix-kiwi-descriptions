@@ -467,6 +467,7 @@ systemctl enable livesys.service
 systemctl enable livesys-late.service
 systemctl enable greetd.service
 systemctl enable systemd-resolved.service
+systemctl --global enable oo7-daemon.service
 
 fi
 
