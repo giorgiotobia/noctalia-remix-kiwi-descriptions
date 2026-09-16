@@ -10,7 +10,7 @@
                 <namedCollection name="multimedia"/>
                 <namedCollection name="networkmanager-submodules"/>
                 <namedCollection name="guest-desktop-agents"/>
-                <!-- <package name="gnome-keyring-pam"/> -->
+                <ignore name="gnome-keyring"/>
                 <package name="pam_oo7"/>
                 <package name="selinux-policy"/>
                 <package name="selinux-policy-targeted"/>
