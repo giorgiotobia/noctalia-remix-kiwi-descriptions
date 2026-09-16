@@ -10,7 +10,8 @@
                 <namedCollection name="multimedia"/>
                 <namedCollection name="networkmanager-submodules"/>
                 <namedCollection name="guest-desktop-agents"/>
-                <package name="gnome-keyring-pam"/>
+                <!-- <package name="gnome-keyring-pam"/> -->
+                <package name="pam_oo7"/>
                 <package name="selinux-policy"/>
                 <package name="selinux-policy-targeted"/>
                 <package name="noctalia"/>
@@ -18,7 +19,7 @@
                 <package name="xwayland-satellite"/>
                 <package name="foot"/>
                 <package name="firefox"/>
-                <package name="fontawesome-fonts-all"/>
+                <!-- <package name="fontawesome-fonts-all"/> -->
                 <package name="playerctl"/>
                 <package name="feh"/>
                 <package name="thunar"/>
