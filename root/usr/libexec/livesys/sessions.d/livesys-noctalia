@@ -8,7 +8,14 @@ WM=umbriel
 
 systemctl --user enable oo7-daemon.service --now
 
-sudo bash -c 'cat <<EOF >> /etc/greetd/config.toml
+sudo bash -c 'cat <<EOF > /etc/greetd/config.toml
+[terminal]
+vt = next
+
+[default_session]
+command = "/usr/bin/noctalia-greeter-session"
+user = "greetd"
+
 [initial_session]
 command = "'$WM'"
 user = "liveuser"
