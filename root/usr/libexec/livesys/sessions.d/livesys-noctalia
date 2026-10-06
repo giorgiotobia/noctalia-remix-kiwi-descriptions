@@ -41,7 +41,7 @@ sed -i -r -e "s/(NoDisplay=)true/\1false/" -e "s/(Terminal=)false/\1true/" /home
 # chmod 600 /home/liveuser/.local/share/keyrings/Default_keyring.keyring
 # touch /home/liveuser/.local/state/noctalia/.setup-complete
 
-sed -i -r -e "s/^(autostart = \[\"noctalia\").*/\1,\"additional_setup.sh \&\"\]/" /home/liveuser/.config/umbriel/config.toml
+sed -i -r -e "s/^.*(autostart = \[\"noctalia\").*/\1,\"additional_setup.sh \&\"\]/" /home/liveuser/.config/umbriel/config.toml
 
 cat >> /home/liveuser/.config/umbriel/config.toml <<EOF
 
