@@ -455,7 +455,10 @@ EOF
 
 # Copy umbriel config in /etc/skel
 cp -r /usr/share/umbriel /etc/skel/.config
-sed -i -r -e "s/^.*(autostart = ).*/\1\[\"noctalia\"]/" /etc/skel/.config/umbriel/config.toml
+sed -i -r -e "s/^# *(\[general\])/\1/" \
+	-e "s/^.*(autostart = ).*/\1\[\"noctalia\"]/" \
+	-e "s/^# *(xwayland = )false/\1true/" \
+	-e "s/^# *(xwayland_native_resolution = true)/\1/" /etc/skel/.config/umbriel/config.toml
 
 # Setup noctalia-greeter
 GREETER_USER=greetd /usr/share/noctalia-greeter/setup_greeter_system.sh
