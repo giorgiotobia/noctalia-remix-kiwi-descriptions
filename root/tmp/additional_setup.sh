@@ -70,7 +70,7 @@ if [[ $(mount | grep sysroot) ]]; then
     FIRSTHOME=$(find /mnt/sysroot/home -maxdepth 1 -mindepth 1 -type d)
     if [ -n "$FIRSTHOME" ]; then
     sudo cp -r /mnt/sysroot/etc/skel/.config/ $FIRSTHOME
-    sudo chown -R $(stat -c %u:%g $FIRSTHOME) $FIRSTHOME/.config/
+    
     # add current output to first user configuration
     sudo bash -c 'cat > '$FIRSTHOME'/.config/'${WM}'/outputs.toml <<EOF
 '"$UMBRIEL_OUTPUTS"'
@@ -80,7 +80,7 @@ EOF'
         -e "s/(spawn:)kitty/\1foot/" '$FIRSTHOME'/.config/'${WM}'/config.toml'
     sudo bash -c 'sed -i -r -e "s/^.*(pad=)[0-9]*x[0-9]*(.*)/\15x5\2/" '$FIRSTHOME'/.config/foot/foot.ini'
     fi
-
+    sudo chown -R $(stat -c %u:%g $FIRSTHOME) $FIRSTHOME/.config/
     sudo rm -f /mnt/sysroot/usr/local/bin/additional_setup.sh
 
     notify-send "INFO" "You can reboot now."
