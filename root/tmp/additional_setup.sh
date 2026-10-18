@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 WM=umbriel
 
 UMBRIEL_OUTPUTS=$(while read MONITOR RESOLUTION FREQUENCY; do
@@ -25,10 +24,7 @@ sed -i -r -e "/\[include\]$/,/^$/ s/(files = \[)\]/\1\"outputs.toml\"\]/" /home/
 IS_VIRTUAL=$(systemd-detect-virt)
 
 if [ "$IS_VIRTUAL" == "kvm" ]; then
-sed -i -r -e "s/(hardware_cursor =).*/\1 false/" \
-    -e '/\[appearance.blur\]/,/^$/ s/(enabled =).*/\1 false/' \
-    -e '/\[appearance.shadow\]/,/^$/ s/(enabled =).*/\1 false/' \
-    -e '/\[animation\]/,/^$/ s/(enabled =).*/\1 false/' /home/liveuser/.config/umbriel/config.toml
+sed -i -e '/\[appearance.blur\]/a\enabled = false' /home/liveuser/.config/umbriel/config.toml
 fi
 
 until [[ $(pgrep noctalia) ]]; do
