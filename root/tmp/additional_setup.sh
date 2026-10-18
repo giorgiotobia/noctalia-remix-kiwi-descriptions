@@ -20,6 +20,8 @@ sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" /home/liveuser/.config/umbriel/confi
 sed -i -r -e "s/(spawn:)kitty/\1foot/" /home/liveuser/.config/umbriel/config.toml
 # add current output to liveuser configuration
 sed -i -r -e "/\[include\]$/,/^$/ s/(files = \[)\]/\1\"outputs.toml\"\]/" /home/liveuser/.config/umbriel/config.toml
+# delete default floating windows size
+sed -i -r -e "/default_floating_size_px/d" /home/liveuser/.config/umbriel/config.toml
 
 IS_VIRTUAL=$(systemd-detect-virt)
 
