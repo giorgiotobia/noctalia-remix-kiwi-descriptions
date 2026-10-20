@@ -56,7 +56,7 @@ if [[ $(mount | grep sysroot) ]]; then
     if [ -f /mnt/sysroot/etc/skel/.config/${WM}/config.toml ]; then
     set -a     
     source /mnt/sysroot/etc/vconsole.conf
-    sudo bash -c 'sed -i -r -e "/\[input.keyboard\]/,/^$/ s/^(layout = \").*/\1'$KEYMAP'\"/" \
+        sudo bash -c 'sed -i -r -e '/\[input.keyboard\]/a\layout = \"'$KEYMAP'\"' \
         -e "s/(files = \[.*\]) *#.*$/\1/" /mnt/sysroot/etc/skel/.config/'${WM}'/config.toml'
     set +a
     fi
