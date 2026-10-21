@@ -42,3 +42,9 @@ match.app_id = "^liveinst$"
 default_maximize = true
 
 EOF
+
+IS_VIRTUAL=$(systemd-detect-virt)
+
+if [ "$IS_VIRTUAL" == "kvm" ]; then
+sed -i -e '/\[appearance.blur\]/a\enabled = false' /home/liveuser/.config/umbriel/config.toml
+fi

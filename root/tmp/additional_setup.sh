@@ -15,12 +15,6 @@ done < <(umbriel outputs | awk '{if($0~/^[A-Z][A-Za-z]*-[0-9]/) mon=$1; {if($0~/
 
 sed -i -e '/# Outputs$/a\'"$UMBRIEL_OUTPUTS"'' /home/liveuser/.config/umbriel/config.toml
 
-IS_VIRTUAL=$(systemd-detect-virt)
-
-if [ "$IS_VIRTUAL" == "kvm" ]; then
-sed -i -e '/\[appearance.blur\]/a\enabled = false' /home/liveuser/.config/umbriel/config.toml
-fi
-
 until [[ $(pgrep noctalia) ]]; do
 sleep 5
 done
