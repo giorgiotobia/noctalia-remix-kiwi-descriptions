@@ -53,14 +53,13 @@ if [[ $(mount | grep sysroot) ]]; then
 
     if [ -f /mnt/sysroot/etc/greetd/config.toml ]; then
     notify-send "INFO" "Installation is over, please wait, setting:\nWayland default session\nKeyboard default layout\ncopying default configs."
-    sudo bash -c 'sed -i -r -e "s|^(command = \"/usr/bin/noctalia-greeter-session)\"$|\1 -- --session '$WM'\"|" /mnt/sysroot/etc/greetd/config.toml'
+    sudo sed -i -r -e "s|^(command = \"/usr/bin/noctalia-greeter-session)\"$|\1 -- --session '$WM'\"|" /mnt/sysroot/etc/greetd/config.toml
     fi
 
     if [ -f /mnt/sysroot/etc/skel/.config/${WM}/config.toml ]; then
     set -a     
     source /mnt/sysroot/etc/vconsole.conf
-        sudo bash -c 'sed -i -r -e '/\[input.keyboard\]/a\layout = \"'$KEYMAP'\"' \
-        -e "s/(files = \[.*\]) *#.*$/\1/" /mnt/sysroot/etc/skel/.config/'${WM}'/config.toml'
+        sudo sed -i -r -e '/\[input.keyboard\]/a\layout = \"'$KEYMAP'\"' -e "s/(files = \[.*\]) *#.*$/\1/" /mnt/sysroot/etc/skel/.config/${WM}/config.toml
     set +a
     fi
 
