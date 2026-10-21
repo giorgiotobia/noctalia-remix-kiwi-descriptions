@@ -53,7 +53,7 @@ if [[ $(mount | grep sysroot) ]]; then
 
     if [ -f /mnt/sysroot/etc/greetd/config.toml ]; then
     notify-send "INFO" "Installation is over, please wait, setting:\nWayland default session\nKeyboard default layout\ncopying default configs."
-    sudo sed -i -r -e "s|^(command = \"/usr/bin/noctalia-greeter-session)\"$|\1 -- --session '$WM'\"|" /mnt/sysroot/etc/greetd/config.toml
+    sudo sed -i -r -e "s|^(command = \"/usr/bin/noctalia-greeter-session)\"$|\1 -- --session $WM\"|" /mnt/sysroot/etc/greetd/config.toml
     fi
 
     if [ -f /mnt/sysroot/etc/skel/.config/${WM}/config.toml ]; then
@@ -75,10 +75,10 @@ if [[ $(mount | grep sysroot) ]]; then
     #sudo bash -c 'cat > '$FIRSTHOME'/.config/'${WM}'/outputs.toml <<EOF
 #'"$UMBRIEL_OUTPUTS"'
 #EOF'
-    sudo bash -c 'sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" \
-         -e "s/(spawn:)kitty/\1foot/" '$FIRSTHOME'/.config/'${WM}'/config.toml'
+    sudo sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" \
+         -e "s/(spawn:)kitty/\1foot/" $FIRSTHOME/.config/'${WM}'/config.toml
     #     -e "/\[include\]$/,/^$/ s/(files = \[)\]/\1\"outputs.toml\"\]/" \
-    sudo bash -c 'sed -i -r -e "s/^.*(pad=)[0-9]*x[0-9]*(.*)/\15x5\2/" '$FIRSTHOME'/.config/foot/foot.ini'
+    sudo sed -i -r -e "s/^.*(pad=)[0-9]*x[0-9]*(.*)/\15x5\2/" $FIRSTHOME/.config/foot/foot.ini
     fi
     sudo chown -R $(stat -c %u:%g $FIRSTHOME) $FIRSTHOME/.config/
     sudo rm -f /mnt/sysroot/usr/local/bin/additional_setup.sh
