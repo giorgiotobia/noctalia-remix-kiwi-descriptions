@@ -10,16 +10,18 @@ SCALE=1.25
 else
 SCALE=1.00
 fi
-LC_NUMERIC="en_US.UTF-8" printf "\n[output.\"%s\"]\nmode = \"%s@%.0f\"\nscale = %s\n" $MONITOR $RESOLUTION $FREQUENCY $SCALE
+#LC_NUMERIC="en_US.UTF-8" printf "\n[output.\"%s\"]\nmode = \"%s@%.0f\"\nscale = %s\n" $MONITOR $RESOLUTION $FREQUENCY $SCALE
+LC_NUMERIC="en_US.UTF-8" printf "\n[output.\"%s\"]\nscale = %s\n" $MONITOR $SCALE
 done < <(umbriel outputs | awk '{if($0~/^[A-Z][A-Za-z]*-[0-9]/) mon=$1; {if($0~/current/) print mon, $1, $3}}'))
 
-echo "$UMBRIEL_OUTPUTS" > /home/liveuser/.config/umbriel/outputs.toml
+#echo "$UMBRIEL_OUTPUTS" > /home/liveuser/.config/umbriel/outputs.toml
+sed -i -e  '/# Outputs$/a\'"$UMBRIEL_OUTPUTS"'' /home/liveuser/.config/umbriel/config.toml
 
 # Delete comments after files list, otherwise the script that apply theme for umbriel doesn't work
 sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" /home/liveuser/.config/umbriel/config.toml
 sed -i -r -e "s/(spawn:)kitty/\1foot/" /home/liveuser/.config/umbriel/config.toml
-# add current output to liveuser configuration
-sed -i -r -e "/\[include\]$/,/^$/ s/(files = \[)\]/\1\"outputs.toml\"\]/" /home/liveuser/.config/umbriel/config.toml
+## add current output to liveuser configuration
+# sed -i -r -e "/\[include\]$/,/^$/ s/(files = \[)\]/\1\"outputs.toml\"\]/" /home/liveuser/.config/umbriel/config.toml
 # delete default floating windows size
 sed -i -r -e "/default_floating_size_px/d" /home/liveuser/.config/umbriel/config.toml
 
@@ -70,12 +72,12 @@ if [[ $(mount | grep sysroot) ]]; then
     sudo cp -r /mnt/sysroot/etc/skel/.config/ $FIRSTHOME
     
     # add current output to first user configuration
-    sudo bash -c 'cat > '$FIRSTHOME'/.config/'${WM}'/outputs.toml <<EOF
-'"$UMBRIEL_OUTPUTS"'
-EOF'
+    #sudo bash -c 'cat > '$FIRSTHOME'/.config/'${WM}'/outputs.toml <<EOF
+#'"$UMBRIEL_OUTPUTS"'
+#EOF'
     sudo bash -c 'sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" \
-        -e "/\[include\]$/,/^$/ s/(files = \[)\]/\1\"outputs.toml\"\]/" \
-        -e "s/(spawn:)kitty/\1foot/" '$FIRSTHOME'/.config/'${WM}'/config.toml'
+         -e "s/(spawn:)kitty/\1foot/" '$FIRSTHOME'/.config/'${WM}'/config.toml'
+    #     -e "/\[include\]$/,/^$/ s/(files = \[)\]/\1\"outputs.toml\"\]/" \
     sudo bash -c 'sed -i -r -e "s/^.*(pad=)[0-9]*x[0-9]*(.*)/\15x5\2/" '$FIRSTHOME'/.config/foot/foot.ini'
     fi
     sudo chown -R $(stat -c %u:%g $FIRSTHOME) $FIRSTHOME/.config/
