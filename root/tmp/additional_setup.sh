@@ -11,14 +11,15 @@ else
 SCALE=1.00
 fi
 #LC_NUMERIC="en_US.UTF-8" printf "\n[output.\"%s\"]\nmode = \"%s@%.0f\"\nscale = %s\n" $MONITOR $RESOLUTION $FREQUENCY $SCALE
-LC_NUMERIC="en_US.UTF-8" printf "\n[output.\"%s\"]\nscale = %s\n" $MONITOR $SCALE
+LC_NUMERIC="en_US.UTF-8" echo "\n[output.\"$MONITOR\"]\nscale\ =\ $SCALE\n"
 done < <(umbriel outputs | awk '{if($0~/^[A-Z][A-Za-z]*-[0-9]/) mon=$1; {if($0~/current/) print mon, $1, $3}}'))
 
 #echo "$UMBRIEL_OUTPUTS" > /home/liveuser/.config/umbriel/outputs.toml
-sed -i -e  '/# Outputs$/a\'"$UMBRIEL_OUTPUTS"'' /home/liveuser/.config/umbriel/config.toml
+sed -i -e '/# Outputs$/a\'"$UMBRIEL_OUTPUTS"'' /home/liveuser/.config/umbriel/config.toml
 
 # Delete comments after files list, otherwise the script that apply theme for umbriel doesn't work
 sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" /home/liveuser/.config/umbriel/config.toml
+# Use foot as default terminal
 sed -i -r -e "s/(spawn:)kitty/\1foot/" /home/liveuser/.config/umbriel/config.toml
 ## add current output to liveuser configuration
 # sed -i -r -e "/\[include\]$/,/^$/ s/(files = \[)\]/\1\"outputs.toml\"\]/" /home/liveuser/.config/umbriel/config.toml
