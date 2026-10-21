@@ -10,21 +10,10 @@ SCALE=1.25
 else
 SCALE=1.00
 fi
-#LC_NUMERIC="en_US.UTF-8" printf "\n[output.\"%s\"]\nmode = \"%s@%.0f\"\nscale = %s\n" $MONITOR $RESOLUTION $FREQUENCY $SCALE
 LC_NUMERIC="en_US.UTF-8" echo "\n[output.\"$MONITOR\"]\nscale\ =\ $SCALE\n"
 done < <(umbriel outputs | awk '{if($0~/^[A-Z][A-Za-z]*-[0-9]/) mon=$1; {if($0~/current/) print mon, $1, $3}}'))
 
-#echo "$UMBRIEL_OUTPUTS" > /home/liveuser/.config/umbriel/outputs.toml
 sed -i -e '/# Outputs$/a\'"$UMBRIEL_OUTPUTS"'' /home/liveuser/.config/umbriel/config.toml
-
-# Delete comments after files list, otherwise the script that apply theme for umbriel doesn't work
-sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" /home/liveuser/.config/umbriel/config.toml
-# Use foot as default terminal
-sed -i -r -e "s/(spawn:)kitty/\1foot/" /home/liveuser/.config/umbriel/config.toml
-## add current output to liveuser configuration
-# sed -i -r -e "/\[include\]$/,/^$/ s/(files = \[)\]/\1\"outputs.toml\"\]/" /home/liveuser/.config/umbriel/config.toml
-# delete default floating windows size
-sed -i -r -e "/default_floating_size_px/d" /home/liveuser/.config/umbriel/config.toml
 
 IS_VIRTUAL=$(systemd-detect-virt)
 
@@ -52,14 +41,13 @@ done
 if [[ $(mount | grep sysroot) ]]; then
 
     if [ -f /mnt/sysroot/etc/greetd/config.toml ]; then
-    notify-send "INFO" "Installation is over, please wait, setting:\nWayland default session\nKeyboard default layout\ncopying default configs."
-    sudo sed -i -r -e "s|^(command = \"/usr/bin/noctalia-greeter-session)\"$|\1 -- --session $WM\"|" /mnt/sysroot/etc/greetd/config.toml
+    notify-send "INFO" "Installation is over, please wait, setting:\nKeyboard default layout\ncopying default configs."
     fi
 
     if [ -f /mnt/sysroot/etc/skel/.config/${WM}/config.toml ]; then
     set -a     
     source /mnt/sysroot/etc/vconsole.conf
-        sudo sed -i -r -e '/\[input.keyboard\]/a\layout = \"'$KEYMAP'\"' -e "s/(files = \[.*\]) *#.*$/\1/" /mnt/sysroot/etc/skel/.config/${WM}/config.toml
+        sudo sed -i -r -e "/\[input.keyboard\]/a\layout = \"$KEYMAP\"" /mnt/sysroot/etc/skel/.config/${WM}/config.toml
     set +a
     fi
 
@@ -69,18 +57,11 @@ if [[ $(mount | grep sysroot) ]]; then
 
     FIRSTHOME=$(find /mnt/sysroot/home -maxdepth 1 -mindepth 1 -type d)
     if [ -n "$FIRSTHOME" ]; then
-    sudo cp -r /mnt/sysroot/etc/skel/.config/ $FIRSTHOME
-    
-    # add current output to first user configuration
-    #sudo bash -c 'cat > '$FIRSTHOME'/.config/'${WM}'/outputs.toml <<EOF
-#'"$UMBRIEL_OUTPUTS"'
-#EOF'
-    sudo sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" \
-         -e "s/(spawn:)kitty/\1foot/" $FIRSTHOME/.config/'${WM}'/config.toml
-    #     -e "/\[include\]$/,/^$/ s/(files = \[)\]/\1\"outputs.toml\"\]/" \
-    sudo sed -i -r -e "s/^.*(pad=)[0-9]*x[0-9]*(.*)/\15x5\2/" $FIRSTHOME/.config/foot/foot.ini
+        sudo cp -r /mnt/sysroot/etc/skel/.config/ $FIRSTHOME        
+        sudo sed -i -r -e "s/^.*(pad=)[0-9]*x[0-9]*(.*)/\15x5\2/" $FIRSTHOME/.config/foot/foot.ini
+        sudo chown -R $(stat -c %u:%g $FIRSTHOME) $FIRSTHOME/.config/
     fi
-    sudo chown -R $(stat -c %u:%g $FIRSTHOME) $FIRSTHOME/.config/
+
     sudo rm -f /mnt/sysroot/usr/local/bin/additional_setup.sh
 
     notify-send "INFO" "You can reboot now."
