@@ -19,7 +19,7 @@ Everything else is standard Fedora core + dependencies
 
 - Noctalia v5.3.0
 - Umbriel wayland compositor nightly
-- Noctalia-greeter v.1.6.0
+- Noctalia-greeter v.1.7.0
 
 Noctalia github:
 - https://github.com/noctalia-dev
