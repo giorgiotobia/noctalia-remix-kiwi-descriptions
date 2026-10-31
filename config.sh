@@ -456,7 +456,7 @@ EOF
 # Copy umbriel config in /etc/skel
 cp -r /usr/share/umbriel /etc/skel/.config
 sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" \
--e "s/(spawn:)kitty/\1foot/" \
+-e "s/(spawn )kitty/\1foot/" \
 -e "/default_floating_size_px/d" \
 -e "s/^# *(\[general\])/\1/" \
 -e "s/^.*(autostart = ).*/\1\[\"noctalia\"]/" \
