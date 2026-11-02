@@ -40,8 +40,8 @@ Set up your development environment and run the image build (substitute `<image_
 # Install kiwi
 sudo dnf --assumeyes install kiwi kiwi-systemdeps distribution-gpg-keys
 # Clone git repository
-git clone https://forge.fedoraproject.org/releng/kiwi-descriptions.git
-cd fedora-kiwi-descriptions
+git clone https://github.com/giorgiotobia/noctalia-remix-kiwi-descriptions.git
+cd noctalia-remix-kiwi-descriptions
 # Run the image build
 sudo ./kiwi-build --kiwi-file=Fedora.kiwi --image-type=iso --image-profile=Noctalia-Live --output-dir ./outdir
 ```
