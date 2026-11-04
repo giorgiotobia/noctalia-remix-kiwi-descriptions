@@ -17,9 +17,9 @@ Everything else is standard Fedora core + dependencies
 
 ## Features
 
-- Noctalia v5
-- Umbriel wayland compositor
-- Noctalia-greeter
+- Noctalia v5.4.1
+- Umbriel wayland compositor nightly
+- Noctalia-greeter v1.7.0
 
 Noctalia github:
 - https://github.com/noctalia-dev
@@ -38,9 +38,12 @@ Set up your development environment and run the image build (substitute `<image_
 
 ```bash
 # Install kiwi
-[]$ sudo dnf --assumeyes install kiwi kiwi-systemdeps distribution-gpg-keys
+sudo dnf --assumeyes install kiwi kiwi-systemdeps distribution-gpg-keys
+# Clone git repository
+git clone https://github.com/giorgiotobia/noctalia-remix-kiwi-descriptions.git
+cd noctalia-remix-kiwi-descriptions
 # Run the image build
-[]$ sudo ./kiwi-build --kiwi-file=Fedora.kiwi --image-type=iso --image-profile=Noctalia-Live --output-dir ./outdir
+sudo ./kiwi-build --kiwi-file=Fedora.kiwi --image-type=iso --image-profile=Noctalia-Live --output-dir ./outdir
 ```
 
 ## Licensing
