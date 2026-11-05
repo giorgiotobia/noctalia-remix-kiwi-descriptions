@@ -435,7 +435,7 @@ wsl-setup --name Fedora-ELN
 fi
 
 if [[ "$kiwi_profiles" == *"Noctalia"* ]]; then
-# enable noctalia-greeter in greetd config
+# Enable noctalia-greeter in greetd config
 cat <<EOF > /etc/greetd/config.toml
 [terminal]
 vt = 1
@@ -463,14 +463,34 @@ sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" \
 -e "s/^# *(xwayland = )false/\1true/" \
 -e "s/^# *(xwayland_native_resolution = true)/\1/" /etc/skel/.config/umbriel/config.toml
 
-# Fix noctalia umbriel template
-sed -i -e "/\[colors.title_bar\]/,/^$/ {/minimize/d}" /usr/share/noctalia/assets/templates/umbriel/umbriel.toml
+# Link default wallpaper
+ln -s /usr/share/noctalia/assets/noctalia-wallpaper.png /usr/share/wallpapers/
+
+# Create default settings for Noctalia
+cat > /etc/skel/.config/noctalia/settings.toml <<EOF
+[shell]
+polkit_agent = true
+
+[theme.templates]
+builtin_ids = [ "foot", "umbriel" ]
+
+[wallpaper]
+directory = "/usr/share/wallpapers"
+
+[wallpaper.default]
+path = "/usr/share/wallpapers/noctalia-wallpaper.png"
+EOF
+
+## Fix noctalia umbriel template
+# sed -i -e "/\[colors.title_bar\]/,/^$/ {/minimize/d}" /usr/share/noctalia/assets/templates/umbriel/umbriel.toml
 
 # Setup noctalia-greeter
 GREETER_USER=greetd /usr/share/noctalia-greeter/setup_greeter_system.sh
+
 # Copy postinstall script
 mv /tmp/additional_setup.sh /usr/local/bin
 chmod +x /usr/local/bin/additional_setup.sh
+
 # Enable services
 systemctl enable livesys.service
 systemctl enable livesys-late.service
