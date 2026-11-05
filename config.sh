@@ -463,9 +463,6 @@ sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" \
 -e "s/^# *(xwayland = )false/\1true/" \
 -e "s/^# *(xwayland_native_resolution = true)/\1/" /etc/skel/.config/umbriel/config.toml
 
-# Link default wallpaper
-ln -s /usr/share/noctalia/assets/noctalia-wallpaper.png /usr/share/wallpapers/
-
 # Create default settings for Noctalia
 cat > /etc/skel/.config/noctalia/settings.toml <<EOF
 [shell]
@@ -474,11 +471,6 @@ polkit_agent = true
 [theme.templates]
 builtin_ids = [ "foot", "umbriel" ]
 
-[wallpaper]
-directory = "/usr/share/wallpapers"
-
-[wallpaper.default]
-path = "/usr/share/wallpapers/noctalia-wallpaper.png"
 EOF
 
 ## Fix noctalia umbriel template
