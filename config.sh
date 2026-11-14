@@ -466,7 +466,8 @@ sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" \
 # Create default settings for Noctalia
 mkdir -p /etc/skel/.config/noctalia
 mkdir -p /etc/skel/.config/strata/themes
-curl -o /etc/skel/.config/strata/themes/noctalia.toml https://raw.githubusercontent.com/noctalia-dev/community-templates/refs/heads/main/strata/strata.toml
+mkdir -p /etc/skel/.config/rhun/themes
+#curl -o /etc/skel/.config/strata/themes/noctalia.toml https://raw.githubusercontent.com/noctalia-dev/community-templates/refs/heads/main/strata/strata.toml
 
 cat > /etc/skel/.config/noctalia/settings.toml <<EOF
 [shell]
@@ -474,18 +475,11 @@ polkit_agent = true
 
 [theme.templates]
 builtin_ids = [ "foot", "umbriel" ]
-community_ids = [ "strata" ]
-
-[catalog.strata]
-name = "Strata"
-category = "misc"
-
-[templates.strata]
-input_path = "strata.toml"
-output_path = "\$XDG_CONFIG_HOME/strata/themes/noctalia.toml"
-pre_hook = "mkdir -p \"\${XDG_CONFIG_HOME:-\$HOME/.config}/strata/themes\""
+community_ids = [ "strata", "rhun" ]
 
 EOF
+
+curl -fsSL https://github.com/vshvedov/rhun/releases/latest/download/install.sh | sh -s -- --prefix /usr/local
 
 ## Fix noctalia umbriel template
 # sed -i -e "/\[colors.title_bar\]/,/^$/ {/minimize/d}" /usr/share/noctalia/assets/templates/umbriel/umbriel.toml
