@@ -12,9 +12,14 @@
         <repository type="rpm-md" alias="terra" priority="110" imageinclude="true" sourcetype="metalink">
                 <source path="https://tetsudou.fyralabs.com/metalink?repo=terra$releasever&amp;arch=$basearch"/>
         </repository>
+        <repository type="rpm-md" alias="eleve:strata" priority="110" imageinclude="true" sourcetype="baseurl" repository_gpgcheck="false" package_gpgcheck="true">
+                <source path="https://download.copr.fedorainfracloud.org/results/eleve/strata/fedora-$releasever-$basearch/"/>
+                <signing key="https://download.copr.fedorainfracloud.org/results/eleve/strata/pubkey.gpg"/>
+        </repository>
         <packages type="bootstrap" patternType="plusRecommended" profiles="Noctalia-Live,Noctalia-Disk">
                 <package name="generic-logos"/>
                 <package name="generic-release"/>
                 <package name="generic-release-notes"/>
         </packages>
 </image>
+

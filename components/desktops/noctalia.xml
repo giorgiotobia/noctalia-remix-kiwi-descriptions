@@ -23,6 +23,7 @@
                 <package name="playerctl"/>
                 <package name="feh"/>
                 <package name="thunar"/>
+                <package name="strata"/>
                 <package name="gedit"/>
                 <package name="egl-utils"/>
                 <package name="xdg-desktop-portal-gtk"/>
