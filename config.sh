@@ -467,7 +467,7 @@ sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" \
 mkdir -p /etc/skel/.config/noctalia
 mkdir -p /etc/skel/.config/strata/themes
 mkdir -p /etc/skel/.config/rhun/themes
-#curl -o /etc/skel/.config/strata/themes/noctalia.toml https://raw.githubusercontent.com/noctalia-dev/community-templates/refs/heads/main/strata/strata.toml
+mkdir -p /etc/skel/.config/foot/themes
 
 cat > /etc/skel/.config/noctalia/settings.toml <<EOF
 [shell]
@@ -479,7 +479,24 @@ community_ids = [ "strata", "rhun" ]
 
 EOF
 
+cat > /etc/skel/.config/strata/settings.toml <<EOF
+theme = "noctalia"
+
+EOF
+
 curl -fsSL https://github.com/vshvedov/rhun/releases/latest/download/install.sh | sh -s -- --prefix /usr/local
+
+cat > /etc/skel/.config/rhun/config <<EOF
+[ui]
+follow_system = false
+theme = noctalia
+dark_theme = noctalia
+light_theme = noctalia
+
+EOF
+
+cp -r /etc/xdg/foot /etc/skel/.config
+sed -i -e '1 i\[main]\ninclude=~/.config/foot/themes/noctalia' /etc/skel/.config/foot/foot.ini
 
 ## Fix noctalia umbriel template
 # sed -i -e "/\[colors.title_bar\]/,/^$/ {/minimize/d}" /usr/share/noctalia/assets/templates/umbriel/umbriel.toml
