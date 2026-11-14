@@ -464,6 +464,7 @@ sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" \
 -e "s/^# *(xwayland_native_resolution = true)/\1/" /etc/skel/.config/umbriel/config.toml
 
 # Create default settings for Noctalia
+mkdir -p /etc/skel/.config/noctalia
 cat > /etc/skel/.config/noctalia/settings.toml <<EOF
 [shell]
 polkit_agent = true
