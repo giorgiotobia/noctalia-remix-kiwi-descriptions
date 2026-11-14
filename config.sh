@@ -471,6 +471,16 @@ polkit_agent = true
 
 [theme.templates]
 builtin_ids = [ "foot", "umbriel" ]
+community_ids = [ "strata" ]
+
+[catalog.strata]
+name = "Strata"
+category = "misc"
+
+[templates.strata]
+input_path = "strata.toml"
+output_path = "\$XDG_CONFIG_HOME/strata/themes/noctalia.toml"
+pre_hook = "mkdir -p \"\${XDG_CONFIG_HOME:-\$HOME/.config}/strata/themes\""
 
 EOF
 
