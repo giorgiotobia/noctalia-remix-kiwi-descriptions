@@ -21,7 +21,7 @@
                 <package name="firefox"/>
                 <!-- <package name="fontawesome-fonts-all"/> -->
                 <package name="playerctl"/>
-                <!-- <package name="feh"/> -->
+                <package name="feh"/>
                 <!-- <package name="thunar"/> -->
                 <package name="strata"/>
                 <package name="gedit"/>
