@@ -4,14 +4,15 @@
 This is a simple remix of Fedora 45 x86_64, built with fedora kiwi descriptions:
 - https://forge.fedoraproject.org/releng/kiwi-descriptions.git
 
-with the addition of Fyra Labs Terra repository:
+with the addition of Fyra Labs Terra repository and Copr eleve/strata:
 - https://terrapkg.com
+- https://copr.fedorainfracloud.org/coprs/eleve/strata
 
 Software is limited to the bare minimum:
 - Foot terminal emulator
 - Firefox browser
-- Thunar file manager
-- Gedit text editor
+- Strata file manager # https://stratafiles.io/
+- Rhun text editor # https://rhun.app/
 
 Everything else is standard Fedora core + dependencies
 

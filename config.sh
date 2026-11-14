@@ -465,9 +465,6 @@ sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" \
 
 # Create default settings for Noctalia
 mkdir -p /etc/skel/.config/noctalia
-mkdir -p /etc/skel/.config/strata/themes
-mkdir -p /etc/skel/.config/rhun/themes
-mkdir -p /etc/skel/.config/foot/themes
 
 cat > /etc/skel/.config/noctalia/settings.toml <<EOF
 [shell]
@@ -479,12 +476,22 @@ community_ids = [ "strata", "rhun" ]
 
 EOF
 
+# Create default setting for Strata
+mkdir -p /etc/skel/.config/strata/themes
+
 cat > /etc/skel/.config/strata/settings.toml <<EOF
 theme = "noctalia"
 
 EOF
 
+mkdir -p /etc/skel/.local/share/dbus-1/services
+cp /usr/share/strata/io.github.lgse.Strata.FileManager1.service /etc/skel/.local/share/dbus-1/services
+
+# Install Rhun
 curl -fsSL https://github.com/vshvedov/rhun/releases/latest/download/install.sh | sh -s -- --prefix /usr/local
+
+# Create default settings for Rhun
+mkdir -p /etc/skel/.config/rhun/themes
 
 cat > /etc/skel/.config/rhun/config <<EOF
 [ui]
@@ -495,11 +502,10 @@ light_theme = noctalia
 
 EOF
 
+# Create default settings for Foot
 cp -r /etc/xdg/foot /etc/skel/.config
+mkdir -p /etc/skel/.config/foot/themes
 sed -i -e '1 i\[main]\ninclude=~/.config/foot/themes/noctalia' /etc/skel/.config/foot/foot.ini
-
-## Fix noctalia umbriel template
-# sed -i -e "/\[colors.title_bar\]/,/^$/ {/minimize/d}" /usr/share/noctalia/assets/templates/umbriel/umbriel.toml
 
 # Setup noctalia-greeter
 GREETER_USER=greetd /usr/share/noctalia-greeter/setup_greeter_system.sh
@@ -516,7 +522,6 @@ systemctl enable systemd-resolved.service
 systemctl --global enable oo7-daemon.service
 
 fi
-
 
 #======================================
 # Finalization steps
