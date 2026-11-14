@@ -465,6 +465,9 @@ sed -i -r -e "s/(files = \[.*\]) *#.*$/\1/" \
 
 # Create default settings for Noctalia
 mkdir -p /etc/skel/.config/noctalia
+mkdir -p /etc/skel/.config/strata/themes
+curl -o /etc/skel/.config/strata/themes/noctalia.toml https://raw.githubusercontent.com/noctalia-dev/community-templates/refs/heads/main/strata/strata.toml
+
 cat > /etc/skel/.config/noctalia/settings.toml <<EOF
 [shell]
 polkit_agent = true
