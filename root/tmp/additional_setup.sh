@@ -2,19 +2,6 @@
 
 WM=umbriel
 
-UMBRIEL_OUTPUTS=$(while read MONITOR RESOLUTION FREQUENCY; do
-if [ ${RESOLUTION%x*} -ge 3840 ]; then
-SCALE=1.60
-elif [ ${RESOLUTION%x*} -ge 2560 ]; then
-SCALE=1.25
-else
-SCALE=1.00
-fi
-LC_NUMERIC="en_US.UTF-8" echo "\n[output.\"$MONITOR\"]\nscale\ =\ $SCALE\n"
-done < <(umbriel outputs | awk '{if($0~/^[A-Z][A-Za-z]*-[0-9]/) mon=$1; {if($0~/current/) print mon, $1, $3}}'))
-
-sed -i -e '/# Outputs$/a\'"$UMBRIEL_OUTPUTS"'' /home/liveuser/.config/umbriel/config.toml
-
 until [[ $(pgrep noctalia) ]]; do
 sleep 5
 done
