@@ -445,13 +445,13 @@ command = "/usr/bin/noctalia-greeter-session -- --session umbriel"
 user = "greetd"
 EOF
 
-# # Add gpgcheck to Terra repo
-# sed -i -e "/gpgcheck/d" /etc/yum.repos.d/terra.repo
-# cat >> /etc/yum.repos.d/terra.repo <<EOF
-# gpgcheck=1
-# gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-terra\$releasever
-# repo_gpgcheck=1
-# EOF
+# Add gpgcheck to Terra repo
+sed -i -e "/gpgcheck/d" /etc/yum.repos.d/terra.repo
+cat >> /etc/yum.repos.d/terra.repo <<EOF
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-terra\$releasever
+repo_gpgcheck=1
+EOF
 
 # Copy umbriel config in /etc/skel
 cp -r /usr/share/umbriel /etc/skel/.config

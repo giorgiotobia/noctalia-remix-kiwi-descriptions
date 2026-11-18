@@ -9,7 +9,7 @@
                         <requires profile="BootDiskCore"/>
                 </profile>
         </profiles>
-        <repository type="rpm-md" alias="terra" priority="110" imageinclude="true" sourcetype="metalink" repository_gpgcheck="true" package_gpgcheck="true">
+        <repository type="rpm-md" alias="terra" priority="110" imageinclude="true" sourcetype="metalink">
                 <source path="https://tetsudou.fyralabs.com/metalink?repo=terra$releasever&amp;arch=$basearch"/>
         </repository>
         <!-- <repository type="rpm-md" alias="eleve-strata" priority="110" imageinclude="true" sourcetype="baseurl" repository_gpgcheck="false" package_gpgcheck="true">
