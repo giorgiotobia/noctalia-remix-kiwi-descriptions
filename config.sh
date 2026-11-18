@@ -472,20 +472,20 @@ polkit_agent = true
 
 [theme.templates]
 builtin_ids = [ "foot", "umbriel" ]
-community_ids = [ "strata", "rhun" ]
+community_ids = [ "rhun" ]
 
 EOF
 
-# Create default setting for Strata
-mkdir -p /etc/skel/.config/strata/themes
+# # Create default setting for Strata
+# mkdir -p /etc/skel/.config/strata/themes
 
-cat > /etc/skel/.config/strata/settings.toml <<EOF
-theme = "noctalia"
+# cat > /etc/skel/.config/strata/settings.toml <<EOF
+# theme = "noctalia"
 
-EOF
+# EOF
 
-mkdir -p /etc/skel/.local/share/dbus-1/services
-cp /usr/share/strata/io.github.lgse.Strata.FileManager1.service /etc/skel/.local/share/dbus-1/services
+# mkdir -p /etc/skel/.local/share/dbus-1/services
+# cp /usr/share/strata/io.github.lgse.Strata.FileManager1.service /etc/skel/.local/share/dbus-1/services
 
 # Install Rhun
 curl -fsSL https://github.com/vshvedov/rhun/releases/latest/download/install.sh | sh -s -- --prefix /usr/local

@@ -22,8 +22,9 @@
                 <!-- <package name="fontawesome-fonts-all"/> -->
                 <package name="playerctl"/>
                 <package name="feh"/>
+                <package name="luciole-nightly"/>
                 <!-- <package name="thunar"/> -->
-                <package name="strata"/>
+                <!-- <package name="strata"/> -->
                 <!-- <package name="gedit"/> -->
                 <package name="egl-utils"/>
                 <package name="xdg-desktop-portal-gtk"/>
