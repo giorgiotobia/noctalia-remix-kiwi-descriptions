@@ -39,7 +39,7 @@ mkdir -p /home/liveuser/.local/share/applications
 cp /usr/share/applications/liveinst.desktop /home/liveuser/.local/share/applications
 sed -i -r -e "s/(NoDisplay=)true/\1false/" -e "s/(Terminal=)false/\1true/" /home/liveuser/.local/share/applications/liveinst.desktop
 
-sed -i -r -e "s/^.*(autostart = \[\"noctalia\").*/\1,\"additional_setup.sh \&\"\]/" -e "/\[general\]/a\show_cheatsheet = true" /home/liveuser/.config/umbriel/config.toml
+sed -i -r -e "s/^.*(autostart = \[\"noctalia\").*/\1,\"umbriel msg cheatsheet-open\",\"additional_setup.sh \&\"\]/" /home/liveuser/.config/umbriel/config.toml
 
 # sed -i -r -e "/(theme = \").*/\1noctalia\"/" /home/liveuser/.config/strata/settings.toml
 
