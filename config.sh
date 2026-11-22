@@ -471,8 +471,8 @@ cat > /etc/skel/.config/noctalia/settings.toml <<EOF
 polkit_agent = true
 
 [theme.templates]
-builtin_ids = [ "foot", "umbriel" ]
-community_ids = [ "rhun","luciole" ]
+builtin_ids = [ "foot","umbriel","luciole" ]
+community_ids = [ "rhun" ]
 
 EOF
 
