@@ -472,7 +472,7 @@ polkit_agent = true
 
 [theme.templates]
 builtin_ids = [ "foot", "umbriel" ]
-community_ids = [ "rhun" ]
+community_ids = [ "rhun","luciole" ]
 
 EOF
 

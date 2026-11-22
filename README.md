@@ -17,7 +17,7 @@ Everything else is standard Fedora core + dependencies
 
 ## Features
 
-- Noctalia v5.5.0
+- Noctalia v5.6.0
 - Umbriel nightly wayland compositor
 - Noctalia-greeter v1.7.0
 - Luciole nightly file manager
